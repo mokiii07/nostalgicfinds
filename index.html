@@ -1,0 +1,2377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shop curated vintage and thrift clothing from Nostalgic Find, with fresh drops, affordable prices, and easy ordering.">
+    <title>NOSTALGIC FIND - Curated Vintage Thrift Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #111827;
+            --secondary: #374151;
+            --border: #e5e7eb;
+            --bg-light: #f9fafb;
+            --bg-elevated: #ffffff;
+            --text: #111827;
+            --text-light: #6b7280;
+            --text-muted: #9ca3af;
+            --accent: #111827;
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --radius-sm: 0.5rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background-image: url('thrift.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+            opacity: 0.18;
+            z-index: 0;
+            pointer-events: none;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(-50%, -50%) translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translate(-50%, -50%) translateY(-25px) rotate(3deg);
+            }
+        }
+
+        .header {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%);
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-sm);
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .header-brand:hover {
+            transform: translateX(4px);
+        }
+
+        .header-logo {
+            max-width: 90px;
+            height: auto;
+            display: block;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.08));
+        }
+
+        .header-logo:hover {
+            transform: scale(1.08);
+            filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.12));
+        }
+
+        .header h1 {
+            font-size: 1.55rem;
+            color: var(--primary);
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #111827 0%, #374151 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .nav button {
+            padding: 0.7rem 1.85rem;
+            font-size: 0.92rem;
+            font-family: inherit;
+            background: var(--bg-elevated);
+            border: 1.5px solid var(--border);
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-light);
+            font-weight: 700;
+            border-radius: var(--radius-md);
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.01em;
+        }
+
+        .nav button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.03), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .nav button:hover::before {
+            left: 100%;
+        }
+
+        .nav button:hover {
+            background: var(--bg-light);
+            border-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            color: var(--text);
+        }
+
+        .nav button:active {
+            transform: translateY(-1px);
+        }
+
+        .nav button.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 14px rgba(17, 24, 39, 0.25);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s backwards;
+            position: relative;
+            z-index: 1;
+        }
+
+        .filters {
+            background: var(--bg-elevated);
+            padding: 1.25rem 1.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: var(--radius-xl);
+            margin-bottom: 2.25rem;
+            display: flex;
+            gap: 1.75rem;
+            flex-wrap: wrap;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .filters:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        .filters label {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .filters select {
+            padding: 0.65rem 1.1rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            border: 1.5px solid var(--border);
+            background: var(--bg-elevated);
+            border-radius: var(--radius-md);
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+        }
+
+        .filters select:hover {
+            border-color: var(--secondary);
+        }
+
+        .filters select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.08);
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 1.75rem;
+        }
+
+        .item-card {
+            background: var(--bg-elevated);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: var(--radius-xl);
+            padding: 0;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+        }
+
+        .item-card:nth-child(1) { animation-delay: 0.08s; }
+        .item-card:nth-child(2) { animation-delay: 0.14s; }
+        .item-card:nth-child(3) { animation-delay: 0.2s; }
+        .item-card:nth-child(4) { animation-delay: 0.26s; }
+        .item-card:nth-child(5) { animation-delay: 0.32s; }
+        .item-card:nth-child(6) { animation-delay: 0.38s; }
+
+        .item-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: var(--shadow-xl);
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .item-card.sold {
+            opacity: 0.55;
+        }
+
+        .item-card.sold::after {
+            content: 'SOLD';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, #111827 0%, #374151 100%);
+            color: white;
+            font-size: 0.72rem;
+            font-weight: 900;
+            padding: 0.5rem 1.1rem;
+            border-radius: var(--radius-md);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            z-index: 10;
+            box-shadow: var(--shadow-md);
+        }
+
+        .item-images {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item-images img.main {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .item-images img.main:hover {
+            opacity: 0.92;
+            transform: scale(1.04);
+        }
+
+        .item-thumbnails {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.85rem;
+            overflow-x: auto;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            background: var(--bg-light);
+        }
+
+        .item-thumbnails::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .item-thumbnails::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .item-thumbnails::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 2px;
+        }
+
+        .item-thumbnails img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: var(--radius-md);
+            flex-shrink: 0;
+        }
+
+        .item-thumbnails img:hover {
+            border-color: var(--primary);
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .item-content {
+            padding: 1.35rem 1.45rem 1.5rem;
+        }
+
+        .item-category {
+            display: inline-block;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.6rem;
+            padding: 0.35rem 0.8rem;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            border-radius: var(--radius-sm);
+        }
+
+        .new-arrival-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #111827 0%, #374151 100%);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 0.4rem 0.9rem;
+            border-radius: var(--radius-md);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-right: 0.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .item-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin-bottom: 0.55rem;
+            color: var(--primary);
+            line-height: 1.35;
+            transition: color 0.2s ease;
+        }
+
+        .item-card:hover .item-title {
+            color: var(--secondary);
+        }
+
+        .item-price {
+            font-size: 1.7rem;
+            color: var(--primary);
+            font-weight: 900;
+            margin-bottom: 0.85rem;
+            background: linear-gradient(135deg, #111827 0%, #374151 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .item-description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .order-info {
+            margin-top: 1.1rem;
+            padding-top: 1.1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .order-info h4 {
+            font-size: 0.88rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .order-info ol {
+            padding-left: 1.35rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .order-info li {
+            margin-bottom: 0.35rem;
+        }
+
+        .admin-panel {
+            display: none;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        .user-view {
+            display: block;
+        }
+
+        .user-view.hidden {
+            display: none;
+        }
+
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .login-box {
+            background: var(--bg-elevated);
+            border-radius: var(--radius-xl);
+            padding: 2.5rem;
+            max-width: 440px;
+            width: 90%;
+            box-shadow: var(--shadow-2xl);
+            animation: scaleIn 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 1.75rem;
+            font-size: 1.65rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.35rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.55rem;
+            font-weight: 700;
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.8rem 1.1rem;
+            font-family: inherit;
+            font-size: 0.98rem;
+            border: 1.5px solid var(--border);
+            background: var(--bg-elevated);
+            border-radius: var(--radius-md);
+            color: var(--text);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.08);
+            transform: translateY(-1px);
+        }
+
+        .form-group textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .image-preview {
+            display: flex;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .image-preview img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+        }
+
+        .image-preview img:hover {
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        .submit-btn {
+            padding: 1rem 2.25rem;
+            font-size: 0.95rem;
+            font-family: inherit;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: var(--radius-md);
+            width: 100%;
+            box-shadow: 0 4px 14px rgba(17, 24, 39, 0.25);
+            letter-spacing: 0.02em;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(17, 24, 39, 0.35);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .admin-section {
+            background: var(--bg-elevated);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            margin-bottom: 2.25rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .admin-section:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .admin-section h3 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .admin-panel h2 {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 1.75rem;
+            background: linear-gradient(135deg, #111827 0%, #374151 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .admin-item {
+            background: var(--bg-elevated);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            margin-bottom: 1.25rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .admin-item:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateX(6px);
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .admin-item-images {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .admin-item-images img {
+            width: 65px;
+            height: 65px;
+            object-fit: cover;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+        }
+
+        .admin-item-images img:hover {
+            border-color: var(--primary);
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .admin-item-content {
+            flex: 1;
+        }
+
+        .admin-item h3 {
+            color: var(--primary);
+            font-size: 1.08rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-item p {
+            color: var(--text-light);
+            font-size: 0.92rem;
+            margin: 0.35rem 0;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 0.85rem;
+            margin-top: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .admin-actions button {
+            padding: 0.65rem 1.35rem;
+            font-family: inherit;
+            font-size: 0.88rem;
+            cursor: pointer;
+            border: 1.5px solid var(--border);
+            background: var(--bg-elevated);
+            color: var(--text);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: var(--radius-md);
+            font-weight: 700;
+        }
+
+        .admin-actions button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-sold {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .btn-sold:hover {
+            box-shadow: 0 4px 14px rgba(17, 24, 39, 0.25);
+        }
+
+        .btn-delete:hover {
+            background: #fee2e2;
+            color: #991b1b;
+            border-color: #fecaca;
+            box-shadow: 0 4px 14px rgba(153, 27, 27, 0.15);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-2xl);
+            animation: scaleIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--bg-elevated);
+            color: var(--primary);
+            border: none;
+            font-size: 1.9rem;
+            width: 52px;
+            height: 52px;
+            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-close:hover {
+            background: var(--bg-light);
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3.5rem 2rem;
+            background: var(--bg-elevated);
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-xl);
+            grid-column: 1 / -1;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .empty-state h3 {
+            color: var(--text);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .empty-state p {
+            color: var(--text-light);
+            font-size: 0.98rem;
+        }
+
+        /* Top Section with Hero Background Image */
+        .top-section {
+            position: relative;
+        }
+
+        /* Hero Section with thrift.png Background */
+        .hero {
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+            background-image: url('thrift.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Dark overlay for readability */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.55);
+            z-index: 0;
+        }
+
+        /* Update hero text for readability on dark bg */
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s backwards;
+        }
+
+        .hero-logo {
+            max-width: 220px;
+            height: auto;
+            display: block;
+            margin: 0 auto 1.5rem auto;
+            filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin: 0 0 0.5rem 0;
+            letter-spacing: -0.04em;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: #f0f0f0;
+            margin: 0;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.35);
+        }
+
+        .hero-logo:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 12px 32px rgba(0,0,0,0.5));
+        }
+
+        /* New Navigation Bar */
+        .nav-bar {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Filters - plain white background */
+        .filters {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1.75rem;
+            flex-wrap: wrap;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Update container margin to account for sticky nav */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s backwards;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .hero::before {
+                background: rgba(0,0,0,0.6);
+            }
+
+            .hero-logo {
+                max-width: 160px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .nav-bar {
+                padding: 0.5rem 0;
+            }
+
+            .nav-container {
+                padding: 0.5rem 1.1rem;
+            }
+
+            .nav {
+                gap: 0.6rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .nav button {
+                padding: 0.65rem 1.5rem;
+                font-size: 0.88rem;
+            }
+
+            .container {
+                margin: 1.5rem auto;
+                padding: 0 1.1rem;
+            }
+
+            .filters {
+                padding: 1.1rem;
+                gap: 0.9rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .filters select {
+                width: 100%;
+            }
+
+            .items-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .admin-section {
+                padding: 1.4rem;
+            }
+
+            .admin-item {
+                flex-direction: column;
+                gap: 1.1rem;
+            }
+
+            .admin-item-images {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .admin-actions {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .login-box {
+                padding: 1.75rem;
+                margin: 1rem;
+            }
+
+            .submit-btn {
+                padding: 0.9rem 1.75rem;
+                font-size: 0.92rem;
+            }
+
+            #editModal .submit-btn {
+                padding: 0.85rem 1.5rem;
+                font-size: 0.88rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 2.5rem 1rem;
+            }
+
+            .hero::before {
+                background: rgba(0,0,0,0.65);
+            }
+
+            .hero-logo {
+                max-width: 130px;
+            }
+
+            .hero-title {
+                font-size: 1.6rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.85rem;
+            }
+
+            .container {
+                padding: 0 0.85rem;
+            }
+
+            .item-images img.main {
+                height: 225px;
+            }
+
+            .item-thumbnails {
+                gap: 0.45rem;
+                padding: 0.7rem;
+            }
+
+            .item-thumbnails img {
+                width: 55px;
+                height: 55px;
+            }
+
+            .item-content {
+                padding: 1.1rem;
+            }
+
+            .item-title {
+                font-size: 1.08rem;
+            }
+
+            .item-price {
+                font-size: 1.55rem;
+            }
+        }
+
+        /* Professional storefront polish */
+        :root {
+            --primary: #1f2933;
+            --secondary: #52616b;
+            --accent: #b88a44;
+            --accent-dark: #8f672b;
+            --cream: #f7f2e8;
+            --ink: #141a1f;
+            --success: #16794f;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(184, 138, 68, 0.12), transparent 34rem),
+                linear-gradient(180deg, #fbfaf7 0%, #f3f5f6 100%);
+        }
+
+        body::before {
+            display: none;
+        }
+
+        .top-section {
+            background: linear-gradient(180deg, rgba(247, 242, 232, 0.82), rgba(255,255,255,0));
+        }
+
+        .hero {
+            min-height: 520px;
+            padding: 5.5rem 1.5rem 4.5rem;
+            display: grid;
+            place-items: center;
+            background-image:
+                linear-gradient(115deg, rgba(15, 23, 31, 0.88), rgba(15, 23, 31, 0.55)),
+                url('thrift.png');
+            background-size: cover;
+            background-position: center;
+            isolation: isolate;
+        }
+
+        .hero::before {
+            background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.42));
+        }
+
+        .hero-content {
+            max-width: 880px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.1rem;
+            padding: 0.45rem 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 999px;
+            color: #f7f2e8;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .hero-logo {
+            max-width: 180px;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 7vw, 5.8rem);
+            line-height: 0.95;
+            letter-spacing: 0;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            max-width: 620px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.88);
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            letter-spacing: 0.04em;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 46px;
+            padding: 0.8rem 1.25rem;
+            border-radius: var(--radius-md);
+            font-weight: 800;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero-btn-primary {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 12px 30px rgba(184, 138, 68, 0.32);
+        }
+
+        .hero-btn-primary:hover {
+            background: var(--accent-dark);
+        }
+
+        .hero-btn-secondary {
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.32);
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.75rem;
+            max-width: 680px;
+            margin: 2.25rem auto 0;
+        }
+
+        .hero-stats div {
+            padding: 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: var(--radius-lg);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(14px);
+        }
+
+        .hero-stats strong,
+        .hero-stats span {
+            display: block;
+        }
+
+        .hero-stats strong {
+            color: #fff;
+            font-size: 1.35rem;
+            font-weight: 900;
+        }
+
+        .hero-stats span {
+            color: rgba(255,255,255,0.72);
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .nav-bar {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(18px);
+        }
+
+        .nav button,
+        .filters select,
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            border-radius: 0.65rem;
+        }
+
+        .nav button.active,
+        .submit-btn,
+        .new-arrival-badge {
+            background: linear-gradient(135deg, var(--primary), #2f3a43);
+        }
+
+        .filters {
+            padding: 1rem;
+            border-radius: var(--radius-lg);
+        }
+
+        .filters label {
+            color: var(--primary);
+        }
+
+        .items-grid {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            align-items: stretch;
+        }
+
+        .item-card {
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(20, 26, 31, 0.08);
+            box-shadow: 0 10px 28px rgba(20, 26, 31, 0.07);
+        }
+
+        .item-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 44px rgba(20, 26, 31, 0.14);
+        }
+
+        .item-images {
+            background: #eef0f2;
+        }
+
+        .item-images img.main {
+            height: 280px;
+        }
+
+        .item-content {
+            display: flex;
+            min-height: 300px;
+            flex-direction: column;
+        }
+
+        .item-category {
+            background: var(--cream);
+            color: var(--accent-dark);
+        }
+
+        .item-price {
+            color: var(--success);
+            background: none;
+            -webkit-text-fill-color: currentColor;
+        }
+
+        .order-info {
+            margin-top: auto;
+            background: #fbfaf7;
+            border: 1px solid rgba(184, 138, 68, 0.18);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+        }
+
+        .order-info h4 {
+            color: var(--accent-dark);
+        }
+
+        .admin-section,
+        .login-box,
+        .empty-state {
+            border-radius: var(--radius-lg);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 500px;
+                padding: 4rem 1.1rem 3rem;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+                max-width: 360px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: stretch;
+                max-width: 320px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .filters {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-logo {
+                max-width: 120px;
+            }
+
+            .item-images img.main {
+                height: 240px;
+            }
+        }
+
+        /* Admin inventory enhancements */
+        .section-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .section-heading h3 {
+            margin: 0;
+        }
+
+        .admin-eyebrow {
+            display: block;
+            color: var(--accent-dark);
+            font-size: 0.72rem;
+            font-weight: 900;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+        }
+
+        .admin-logout {
+            width: auto;
+            min-width: 108px;
+            padding: 0.72rem 1.35rem;
+            font-size: 0.9rem;
+        }
+
+        .inventory-summary {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-card {
+            padding: 1.25rem;
+            border: 1px solid rgba(20, 26, 31, 0.08);
+            border-radius: var(--radius-lg);
+            background: #ffffff;
+            box-shadow: 0 10px 28px rgba(20, 26, 31, 0.07);
+        }
+
+        .summary-card span,
+        .summary-card strong {
+            display: block;
+        }
+
+        .summary-card span {
+            color: var(--text-light);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .summary-card strong {
+            margin-top: 0.5rem;
+            color: var(--primary);
+            font-size: 1.75rem;
+            font-weight: 900;
+        }
+
+        .summary-card.sold strong {
+            color: #9f5b12;
+        }
+
+        .summary-card.value strong {
+            color: var(--success);
+        }
+
+        .recent-sold-section {
+            border-color: rgba(184, 138, 68, 0.22);
+            background: linear-gradient(180deg, #ffffff, #fbfaf7);
+        }
+
+        .recent-sold-list {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .sold-row {
+            display: grid;
+            grid-template-columns: 56px 1fr auto;
+            align-items: center;
+            gap: 0.9rem;
+            padding: 0.75rem;
+            border: 1px solid rgba(20, 26, 31, 0.08);
+            border-radius: var(--radius-md);
+            background: #ffffff;
+        }
+
+        .sold-row img {
+            width: 56px;
+            height: 56px;
+            object-fit: cover;
+            border-radius: 0.55rem;
+            border: 1px solid var(--border);
+        }
+
+        .sold-row h4 {
+            margin: 0 0 0.2rem;
+            color: var(--primary);
+            font-size: 0.98rem;
+        }
+
+        .sold-row p {
+            margin: 0;
+            color: var(--text-light);
+            font-size: 0.86rem;
+        }
+
+        .sold-price {
+            color: var(--success);
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.26rem 0.6rem;
+            border-radius: 999px;
+            background: #f8ead8;
+            color: #8a4b0d;
+            font-size: 0.72rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .admin-item.sold-item {
+            background: #fbfaf7;
+            border-color: rgba(184, 138, 68, 0.22);
+        }
+
+        .btn-restock:hover {
+            background: #dcfce7;
+            color: #166534;
+            border-color: #bbf7d0;
+        }
+
+        @media (max-width: 768px) {
+        .section-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .inventory-summary {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .sold-row {
+                grid-template-columns: 52px 1fr;
+            }
+
+            .sold-price {
+                grid-column: 2;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .inventory-summary {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .admin-top-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Full Top Section with Continuous Background -->
+    <section class="top-section">
+        <!-- Hero Section with thrift.png Background -->
+        <section class="hero">
+            <div class="hero-content">
+                <span class="hero-kicker">Curated vintage clothing</span>
+                <img src="thrift.png" alt="Nostalgic Find logo" class="hero-logo">
+                <h1 class="hero-title">NOSTALGIC FIND</h1>
+                <p class="hero-subtitle">Premium thrift pieces, refreshed weekly</p>
+                <div class="hero-actions">
+                    <a href="#itemsGrid" class="hero-btn hero-btn-primary">Shop Collection</a>
+                    <a href="#itemsGrid" class="hero-btn hero-btn-secondary">View Ordering Steps</a>
+                </div>
+                <div class="hero-stats" aria-label="Store highlights">
+                    <div><strong>12+</strong><span>Curated pieces</span></div>
+                    <div><strong>&#8369;25+</strong><span>Starting price</span></div>
+                    <div><strong>Weekly</strong><span>New drops</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Bar -->
+        <nav class="nav-bar">
+            <div class="nav-container">
+                <div class="nav">
+                    <button id="btnUser" class="active" style="display: block;">Browse Items</button>
+                    <button id="btnAdmin" style="display: block;">Admin Panel</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Container for both user view filters and items -->
+        <div class="container">
+            <div class="user-view" id="userView">
+                <div class="filters">
+                    <label for="categoryFilter">Category</label>
+                    <select id="categoryFilter">
+                        <option value="">All Items</option>
+                        <option value="Jackets">Jackets</option>
+                        <option value="Shirts">Shirts</option>
+                        <option value="Pants">Pants</option>
+                        <option value="Dresses">Dresses</option>
+                        <option value="T-Shirts">T-Shirts</option>
+                        <option value="Accessories">Accessories</option>
+                    </select>
+                    <label for="sortBy">Sort By</label>
+                    <select id="sortBy">
+                        <option value="newest">Newest First</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                    </select>
+                </div>
+                <div class="items-grid" id="itemsGrid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Container for admin panel (separate) -->
+    <div class="container">
+
+        <div class="admin-panel" id="adminPanel">
+            <div class="admin-top-actions">
+                <button id="btnLogout" class="submit-btn admin-logout">Logout</button>
+            </div>
+
+            <div class="inventory-summary" aria-label="Inventory summary">
+                <div class="summary-card">
+                    <span>Total Items</span>
+                    <strong id="adminTotalItems">0</strong>
+                </div>
+                <div class="summary-card">
+                    <span>Available</span>
+                    <strong id="adminAvailableItems">0</strong>
+                </div>
+                <div class="summary-card sold">
+                    <span>Sold Items</span>
+                    <strong id="adminSoldItems">0</strong>
+                </div>
+                <div class="summary-card value">
+                    <span>Available Value</span>
+                    <strong id="adminInventoryValue">&#8369;0.00</strong>
+                </div>
+            </div>
+
+            <div class="admin-section recent-sold-section">
+                <div class="section-heading">
+                    <div>
+                        <span class="admin-eyebrow">Sales Activity</span>
+                        <h3>Recent Sold Items</h3>
+                    </div>
+                </div>
+                <div id="recentSoldList" class="recent-sold-list"></div>
+            </div>
+            <div class="admin-section">
+                <h3>Add New Item</h3>
+                <form id="addItemForm">
+                    <div class="form-group">
+                        <label for="itemTitle">Item Title *</label>
+                        <input type="text" id="itemTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemCategory">Category *</label>
+                        <select id="itemCategory" required>
+                            <option value="">Select a category</option>
+                            <option value="Jackets">Jackets</option>
+                            <option value="Shirts">Shirts</option>
+                            <option value="Pants">Pants</option>
+                            <option value="Dresses">Dresses</option>
+                            <option value="T-Shirts">T-Shirts</option>
+                            <option value="Accessories">Accessories</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemPrice">Price (&#8369;) *</label>
+                        <input type="number" id="itemPrice" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemDescription">Description</label>
+                        <textarea id="itemDescription"></textarea>
+                    </div>
+                    <div class="form-group" style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
+                        <input type="checkbox" id="newArrival" style="width: auto; transform: scale(1.2);" checked>
+                        <label for="newArrival" style="margin: 0; font-weight: 700; font-size: 0.95rem;">Mark as New Arrival</label>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemImages">Upload Images (multiple allowed) *</label>
+                        <input type="file" id="itemImages" accept="image/*" multiple required>
+                        <div class="image-preview" id="imagePreview"></div>
+                    </div>
+                    <button type="submit" class="submit-btn">Post Item</button>
+                </form>
+            </div>
+
+            <div class="admin-section manage-inventory-section">
+                <div class="section-heading">
+                    <div>
+                        <span class="admin-eyebrow">Catalog</span>
+                        <h3>Manage Items</h3>
+                    </div>
+                </div>
+                <div id="adminItemsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-modal" id="loginModal">
+        <div class="login-box">
+            <h2>Admin Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" required>
+                </div>
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="imageModal">
+        <button class="modal-close" id="modalClose">&times;</button>
+        <img id="modalImage" src="" alt="">
+    </div>
+
+    <div class="modal" id="editModal">
+        <button class="modal-close" id="editModalClose">&times;</button>
+        <div style="background: var(--bg-elevated); border-radius: var(--radius-xl); padding: 2.25rem; max-width: 600px; width: 90%; box-shadow: var(--shadow-2xl); border: 1px solid rgba(0, 0, 0, 0.05);">
+            <h2 style="margin-bottom: 1.75rem; color: var(--primary); font-weight: 800; font-size: 1.6rem;">Edit Item</h2>
+            <form id="editItemForm">
+                <input type="hidden" id="editItemId">
+                <div class="form-group">
+                    <label for="editItemTitle">Item Title *</label>
+                    <input type="text" id="editItemTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="editItemCategory">Category *</label>
+                    <select id="editItemCategory" required>
+                        <option value="">Select a category</option>
+                        <option value="Jackets">Jackets</option>
+                        <option value="Shirts">Shirts</option>
+                        <option value="Pants">Pants</option>
+                        <option value="Dresses">Dresses</option>
+                        <option value="T-Shirts">T-Shirts</option>
+                        <option value="Accessories">Accessories</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editItemPrice">Price (&#8369;) *</label>
+                    <input type="number" id="editItemPrice" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="editItemDescription">Description</label>
+                    <textarea id="editItemDescription"></textarea>
+                </div>
+                <div class="form-group" style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem;">
+                    <input type="checkbox" id="editNewArrival" style="width: auto; transform: scale(1.2);">
+                    <label for="editNewArrival" style="margin: 0; font-weight: 700; font-size: 0.95rem;">Mark as New Arrival</label>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 1.25rem;">
+                    <button type="button" id="cancelEdit" class="submit-btn" style="background: var(--bg-light); color: var(--text); border: 1.5px solid var(--border); width: 50%; box-shadow: none;">Cancel</button>
+                    <button type="submit" class="submit-btn" style="width: 50%;">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const ADMIN_PASSWORD = 'admin123';
+        let items = [];
+        let selectedFiles = [];
+        let isAdminLoggedIn = sessionStorage.getItem('nostalgicFindAdminLoggedIn') === 'true';
+        const DB_NAME = 'NostalgicFindInventoryDB';
+        const DB_VERSION = 1;
+        const ITEM_STORE = 'items';
+
+        const btnUser = document.getElementById('btnUser');
+        const btnAdmin = document.getElementById('btnAdmin');
+        const userView = document.getElementById('userView');
+        const topSection = document.querySelector('.top-section');
+        const adminPanel = document.getElementById('adminPanel');
+        const itemsGrid = document.getElementById('itemsGrid');
+        const addItemForm = document.getElementById('addItemForm');
+        const itemImagesInput = document.getElementById('itemImages');
+        const imagePreview = document.getElementById('imagePreview');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const sortBy = document.getElementById('sortBy');
+        const adminItemsList = document.getElementById('adminItemsList');
+        const recentSoldList = document.getElementById('recentSoldList');
+        const adminTotalItems = document.getElementById('adminTotalItems');
+        const adminAvailableItems = document.getElementById('adminAvailableItems');
+        const adminSoldItems = document.getElementById('adminSoldItems');
+        const adminInventoryValue = document.getElementById('adminInventoryValue');
+        const imageModal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalClose = document.getElementById('modalClose');
+        const loginModal = document.getElementById('loginModal');
+        const loginForm = document.getElementById('loginForm');
+        const adminPasswordInput = document.getElementById('adminPassword');
+        const btnLogout = document.getElementById('btnLogout');
+        const editModal = document.getElementById('editModal');
+        const editItemForm = document.getElementById('editItemForm');
+        const editModalClose = document.getElementById('editModalClose');
+        const cancelEdit = document.getElementById('cancelEdit');
+        const editItemId = document.getElementById('editItemId');
+        const editItemTitle = document.getElementById('editItemTitle');
+        const editItemCategory = document.getElementById('editItemCategory');
+        const editItemPrice = document.getElementById('editItemPrice');
+        const editItemDescription = document.getElementById('editItemDescription');
+        function openInventoryDatabase() {
+            return new Promise((resolve, reject) => {
+                if (!('indexedDB' in window)) {
+                    reject(new Error('IndexedDB is not supported in this browser.'));
+                    return;
+                }
+
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+                request.onupgradeneeded = (event) => {
+                    const db = event.target.result;
+                    if (!db.objectStoreNames.contains(ITEM_STORE)) {
+                        const store = db.createObjectStore(ITEM_STORE, { keyPath: 'id' });
+                        store.createIndex('category', 'category', { unique: false });
+                        store.createIndex('sold', 'sold', { unique: false });
+                        store.createIndex('createdAt', 'createdAt', { unique: false });
+                    }
+                };
+
+                request.onsuccess = () => resolve(request.result);
+                request.onerror = () => reject(request.error);
+            });
+        }
+
+        async function getItemsFromDatabase() {
+            const db = await openInventoryDatabase();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction(ITEM_STORE, 'readonly');
+                const store = transaction.objectStore(ITEM_STORE);
+                const request = store.getAll();
+
+                request.onsuccess = () => resolve(request.result || []);
+                request.onerror = () => reject(request.error);
+                transaction.oncomplete = () => db.close();
+            });
+        }
+
+        async function saveItemsToDatabase(itemsToSave) {
+            const db = await openInventoryDatabase();
+            return new Promise((resolve, reject) => {
+                const transaction = db.transaction(ITEM_STORE, 'readwrite');
+                const store = transaction.objectStore(ITEM_STORE);
+                store.clear();
+                itemsToSave.forEach(item => store.put(item));
+
+                transaction.oncomplete = () => {
+                    db.close();
+                    resolve();
+                };
+                transaction.onerror = () => {
+                    db.close();
+                    reject(transaction.error);
+                };
+            });
+        }
+        async function loadItems() {
+            const databaseItems = await getItemsFromDatabase();
+            if (databaseItems.length > 0) {
+                items = databaseItems;
+                return;
+            }
+
+            const saved = localStorage.getItem('nostalgicFindItems');
+            if (saved) {
+                items = JSON.parse(saved);
+                await saveItems();
+                return;
+            } else {
+                items = [
+                    {
+                        id: Date.now() - 12,
+                        title: '80s Bomber Jacket',
+                        category: 'Jackets',
+                        price: 85.00,
+                        description: 'Classic 80s bomber jacket with satin finish',
+                        images: [
+                            'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=80s%20vintage%20bomber%20jacket%20satin%20brown&image_size=square',
+                            'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=vintage%20bomber%20jacket%20zipper%20detail&image_size=square'
+                        ],
+                        sold: false,
+                        createdAt: Date.now() - 12
+                    },
+                    {
+                        id: Date.now() - 11,
+                        title: 'Corduroy Jacket',
+                        category: 'Jackets',
+                        price: 55.00,
+                        description: '70s tan corduroy jacket',
+                        images: [
+                            'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=70s%20tan%20corduroy%20jacket%20vintage&image_size=square'
+                        ],
+                        sold: false,
+                        createdAt: Date.now() - 11
+                    },
+                    {
+                        id: Date.now() - 10,
+                        title: 'Vintage Denim Jacket',
+                        category: 'Jackets',
+                        price: 75.00,
+                        description: 'Beautiful 80s denim jacket with brass buttons',
+                        images: [
+                            'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=vintage%2080s%20denim%20jacket%20on%20wooden%20hanger%20nostalgic&image_size=square',
+                            'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=vintage%20denim%20jacket%20close%20up%20brass%20buttons&image_size=square'
+                        ],
+                        sold: false,
+                        createdAt: Date.now() - 10
+                    },
+                    {
+                        id: Date.now() - 9,
+                        title: 'Leather Jacket',
+                        category: 'Jackets',
+                        price: 150.00,
+                        description: 'Classic 80s black leather jacket',
+                        images: [
+                            'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=80s%20black%20leather%20jacket%20vintage&image_size=square'
+                        ],
+                        sold: false,
+                        createdAt: Date.now() - 9
+                    },
+                    {
+                        id: Date.now() - 8,
+                        title: 'Vintage Band T-Shirt',
+                        category: 'T-Shirts',
+                        price: 35.00,
+                        description: 'Vintage 70s rock band t-shirt',
+                        images: [
+                            'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=vintage%2070s%20rock%20band%20tshirt%20faded&image_size=square'
+                        ],
+                        sold: false,
+                        createdAt: Date.now() - 8
+                    },
+                    {
+                        id: Date.now() - 7,
+                        title: 'Retro Striped Shirt',
+                        category: 'Shirts',
+                        price: 40.00,
+                        description: '90s retro striped button-up shirt',
+                        images: [
+                            'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=90s%20retro%20striped%20button%20up%20shirt&image_size=square'
+                        ],
+                        sold: false,
+                        createdAt: Date.now() - 7
+                    },
+                    {
+                        id: Date.now() - 6,
+                        title: 'Plaid Flannel',
+                        category: 'Shirts',
+                        price: 45.00,
+                        description: 'Vintage 90s red plaid flannel shirt',
+                        images: [
+                            'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=90s%20red%20plaid%20flannel%20shirt&image_size=square'
+                        ],
+                        sold: false,
+                        createdAt: Date.now() - 6
+                    },
+                    {
+                        id: Date.now() - 5,
+                        title: 'High-Waisted Jeans',
+                        category: 'Pants',
+                        price: 60.00,
+                        description: 'Vintage 80s high-waisted mom jeans',
+                        images: [
+                            'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=80s%20vintage%20high%20waisted%20jeans&image_size=square'
+                        ],
+                        sold: false,
+                        createdAt: Date.now() - 5
+                    },
+                    {
+                        id: Date.now() - 4,
+                        title: 'Corduroy Shorts',
+                        category: 'Pants',
+                        price: 35.00,
+                        description: 'Vintage 70s corduroy shorts',
+                        images: [
+                            'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=70s%20corduroy%20shorts%20vintage&image_size=square'
+                        ],
+                        sold: false,
+                        createdAt: Date.now() - 4
+                    },
+                    {
+                        id: Date.now() - 3,
+                        title: 'Floral Dress',
+                        category: 'Dresses',
+                        price: 65.00,
+                        description: '70s floral maxi dress',
+                        images: [
+                            'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=70s%20floral%20maxi%20dress%20vintage&image_size=square'
+                        ],
+                        sold: false,
+                        createdAt: Date.now() - 3
+                    },
+                    {
+                        id: Date.now() - 2,
+                        title: 'Vintage Silk Scarf',
+                        category: 'Accessories',
+                        price: 25.00,
+                        description: 'Beautiful 80s silk scarf',
+                        images: [
+                            'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=80s%20vintage%20silk%20scarf&image_size=square'
+                        ],
+                        sold: false,
+                        createdAt: Date.now() - 2
+                    },
+                    {
+                        id: Date.now() - 1,
+                        title: 'Leather Belt',
+                        category: 'Accessories',
+                        price: 30.00,
+                        description: 'Vintage 90s leather belt',
+                        images: [
+                            'https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=90s%20vintage%20leather%20belt&image_size=square'
+                        ],
+                        sold: false,
+                        createdAt: Date.now() - 1
+                    }
+                ];
+                // Mark newest 4 items as new arrivals
+                items.sort((a, b) => b.createdAt - a.createdAt);
+                for (let i = 0; i < 4 && i < items.length; i++) {
+                    items[i].newArrival = true;
+                }
+                await saveItems();
+            }
+        }
+
+        async function saveItems() {
+            await saveItemsToDatabase(items);
+        }
+
+        btnUser.addEventListener('click', () => {
+            btnUser.classList.add('active');
+            btnAdmin.classList.remove('active');
+            userView.classList.remove('hidden');
+            adminPanel.classList.remove('active');
+            renderUserItems();
+        });
+
+        btnAdmin.addEventListener('click', () => {
+            if (isAdminLoggedIn) {
+                showAdminPanel();
+            } else {
+                loginModal.classList.add('active');
+                adminPasswordInput.value = '';
+                adminPasswordInput.focus();
+            }
+        });
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (adminPasswordInput.value === ADMIN_PASSWORD) {
+                isAdminLoggedIn = true;
+                sessionStorage.setItem('nostalgicFindAdminLoggedIn', 'true');
+                loginModal.classList.remove('active');
+                showAdminPanel();
+            } else {
+                alert('Incorrect password!');
+                adminPasswordInput.value = '';
+                adminPasswordInput.focus();
+            }
+        });
+
+        loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.classList.remove('active');
+            }
+        });
+
+        btnLogout.addEventListener('click', () => {
+            isAdminLoggedIn = false;
+            sessionStorage.removeItem('nostalgicFindAdminLoggedIn');
+            showUserView();
+        });
+
+        function showUserView() {
+            topSection.style.display = 'block';
+            btnUser.style.display = 'block';
+            btnAdmin.style.display = 'block';
+            btnUser.classList.add('active');
+            btnAdmin.classList.remove('active');
+            userView.classList.remove('hidden');
+            adminPanel.classList.remove('active');
+            renderUserItems();
+        }
+
+        function showAdminPanel() {
+            topSection.style.display = 'none';
+            btnUser.style.display = 'none';
+            btnAdmin.style.display = 'none';
+            userView.classList.add('hidden');
+            adminPanel.classList.add('active');
+            renderAdminItems();
+        }
+
+        itemImagesInput.addEventListener('change', (e) => {
+            selectedFiles = Array.from(e.target.files);
+            imagePreview.innerHTML = '';
+            selectedFiles.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    imagePreview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        addItemForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const title = document.getElementById('itemTitle').value;
+            const category = document.getElementById('itemCategory').value;
+            const price = parseFloat(document.getElementById('itemPrice').value);
+            const description = document.getElementById('itemDescription').value;
+            
+            const images = [];
+            
+            for (const file of selectedFiles) {
+                const reader = new FileReader();
+                const imageData = await new Promise((resolve) => {
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(file);
+                });
+                images.push(imageData);
+            }
+            
+            const newItem = {
+                id: Date.now(),
+                title,
+                category,
+                price,
+                description,
+                images,
+                sold: false,
+                newArrival: document.getElementById('newArrival').checked,
+                createdAt: Date.now()
+            };
+            
+            items.unshift(newItem);
+            await saveItems();
+            addItemForm.reset();
+            imagePreview.innerHTML = '';
+            selectedFiles = [];
+            renderAdminItems();
+        });
+
+        function renderUserItems() {
+            let filteredItems = items.filter(item => !item.sold);
+            
+            const categoryValue = categoryFilter.value;
+            if (categoryValue) {
+                filteredItems = filteredItems.filter(item => item.category === categoryValue);
+            }
+            
+            const sortValue = sortBy.value;
+            if (sortValue === 'price-low') {
+                filteredItems.sort((a, b) => a.price - b.price);
+            } else if (sortValue === 'price-high') {
+                filteredItems.sort((a, b) => b.price - a.price);
+            } else {
+                filteredItems.sort((a, b) => b.createdAt - a.createdAt);
+            }
+            
+            if (filteredItems.length === 0) {
+                itemsGrid.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No Items Found</h3>
+                        <p>Check back soon for new vintage treasures!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            itemsGrid.innerHTML = filteredItems.map(item => `
+                <div class="item-card">
+                    <div class="item-images">
+                        <img src="${item.images[0]}" alt="${item.title}" class="main" onclick="openModal('${item.images[0]}')">
+                        ${item.images.length > 1 ? `
+                            <div class="item-thumbnails">
+                                ${item.images.slice(1).map(img => `
+                                    <img src="${img}" alt="Additional photo" onclick="openModal('${img}')">
+                                `).join('')}
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="item-content">
+                        <div style="margin-bottom: 0.6rem;">
+                            ${item.newArrival ? '<span class="new-arrival-badge">NEW ARRIVAL</span>' : ''}
+                            <span class="item-category">${item.category}</span>
+                        </div>
+                        <h3 class="item-title">${item.title}</h3>
+                        <div class="item-price">${formatPrice(item.price)}</div>
+                        <div class="item-description">${item.description}</div>
+                        <div class="order-info">
+                            <h4>How to Order</h4>
+                            <ol>
+                                <li>Take a screenshot of this item</li>
+                                <li>Send to our Facebook page: <strong>Nostalgic Vibes</strong></li>
+                                <li>Modes of payment: Cash or Gcash</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function formatPrice(price) {
+            return `&#8369;${Number(price || 0).toFixed(2)}`;
+        }
+
+        function formatSoldDate(timestamp) {
+            if (!timestamp) return 'Sold date not recorded';
+            return new Date(timestamp).toLocaleString([], {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function updateAdminSummary() {
+            const soldItems = items.filter(item => item.sold);
+            const availableItems = items.filter(item => !item.sold);
+            const availableValue = availableItems.reduce((sum, item) => sum + Number(item.price || 0), 0);
+
+            adminTotalItems.textContent = items.length;
+            adminAvailableItems.textContent = availableItems.length;
+            adminSoldItems.textContent = soldItems.length;
+            adminInventoryValue.innerHTML = formatPrice(availableValue);
+        }
+
+        function renderRecentSoldItems() {
+            const soldItems = items
+                .filter(item => item.sold)
+                .sort((a, b) => (b.soldAt || 0) - (a.soldAt || 0))
+                .slice(0, 5);
+
+            if (soldItems.length === 0) {
+                recentSoldList.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No Sold Items Yet</h3>
+                        <p>Items you mark as sold will appear here for quick inventory tracking.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            recentSoldList.innerHTML = soldItems.map(item => `
+                <div class="sold-row">
+                    <img src="${item.images[0]}" alt="${item.title}">
+                    <div>
+                        <h4>${item.title}</h4>
+                        <p>${item.category} - ${formatSoldDate(item.soldAt)}</p>
+                    </div>
+                    <div class="sold-price">${formatPrice(item.price)}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderAdminItems() {
+            updateAdminSummary();
+            renderRecentSoldItems();
+
+            if (items.length === 0) {
+                adminItemsList.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No Items Yet</h3>
+                        <p>Add your first vintage treasure above!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            adminItemsList.innerHTML = items.map(item => `
+                <div class="admin-item ${item.sold ? 'sold-item' : ''}">
+                    <div class="admin-item-images">
+                        ${item.images.map(img => `<img src="${img}" alt="${item.title}">`).join('')}
+                    </div>
+                    <div class="admin-item-content">
+                        <h3>${item.newArrival ? '<span class="new-arrival-badge">NEW ARRIVAL</span>' : ''} ${item.title} ${item.sold ? '<span class="status-pill">Sold</span>' : ''}</h3>
+                        <p><strong>Category:</strong> ${item.category}</p>
+                        <p><strong>Price:</strong> ${formatPrice(item.price)}</p>
+                        ${item.sold ? `<p><strong>Sold Date:</strong> ${formatSoldDate(item.soldAt)}</p>` : ''}
+                        <p><strong>Description:</strong> ${item.description}</p>
+                        <div class="admin-actions">
+                            <button onclick="editItem(${item.id})">Edit</button>
+                            ${!item.sold ? `<button class="btn-sold" onclick="markSold(${item.id})">Mark as Sold</button>` : `<button class="btn-restock" onclick="restoreItem(${item.id})">Return to Stock</button>`}
+                            <button class="btn-delete" onclick="deleteItem(${item.id})">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function markSold(id) {
+            const item = items.find(i => i.id === id);
+            if (item) {
+                item.sold = true;
+                item.soldAt = Date.now();
+                await saveItems();
+                renderAdminItems();
+                renderUserItems();
+            }
+        }
+
+        async function restoreItem(id) {
+            const item = items.find(i => i.id === id);
+            if (item) {
+                item.sold = false;
+                delete item.soldAt;
+                await saveItems();
+                renderAdminItems();
+                renderUserItems();
+            }
+        }
+
+        async function deleteItem(id) {
+            if (confirm('Are you sure you want to delete this item?')) {
+                items = items.filter(i => i.id !== id);
+                await saveItems();
+                renderAdminItems();
+            }
+        }
+
+        function openModal(imgSrc) {
+            modalImage.src = imgSrc;
+            imageModal.classList.add('active');
+        }
+
+        modalClose.addEventListener('click', () => {
+            imageModal.classList.remove('active');
+        });
+
+        imageModal.addEventListener('click', (e) => {
+            if (e.target === imageModal) {
+                imageModal.classList.remove('active');
+            }
+        });
+
+        categoryFilter.addEventListener('change', renderUserItems);
+        sortBy.addEventListener('change', renderUserItems);
+
+        function editItem(id) {
+            const item = items.find(i => i.id === id);
+            if (item) {
+                editItemId.value = item.id;
+                editItemTitle.value = item.title;
+                editItemCategory.value = item.category;
+                editItemPrice.value = item.price;
+                editItemDescription.value = item.description;
+                document.getElementById('editNewArrival').checked = !!item.newArrival;
+                editModal.classList.add('active');
+            }
+        }
+
+        editItemForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = parseInt(editItemId.value);
+            const itemIndex = items.findIndex(i => i.id === id);
+            if (itemIndex !== -1) {
+                items[itemIndex].title = editItemTitle.value;
+                items[itemIndex].category = editItemCategory.value;
+                items[itemIndex].price = parseFloat(editItemPrice.value);
+                items[itemIndex].description = editItemDescription.value;
+                items[itemIndex].newArrival = document.getElementById('editNewArrival').checked;
+                await saveItems();
+                editModal.classList.remove('active');
+                renderAdminItems();
+            }
+        });
+
+        editModalClose.addEventListener('click', () => {
+            editModal.classList.remove('active');
+        });
+
+        cancelEdit.addEventListener('click', () => {
+            editModal.classList.remove('active');
+        });
+
+        editModal.addEventListener('click', (e) => {
+            if (e.target === editModal) {
+                editModal.classList.remove('active');
+            }
+        });
+
+        async function initializeApp() {
+            try {
+                await loadItems();
+                if (isAdminLoggedIn) {
+                    showAdminPanel();
+                } else {
+                    renderUserItems();
+                }
+            } catch (error) {
+                console.error('Database failed to load:', error);
+                alert('Inventory database could not be loaded in this browser.');
+            }
+        }
+
+        initializeApp();
+    </script>
+</body>
+</html>
