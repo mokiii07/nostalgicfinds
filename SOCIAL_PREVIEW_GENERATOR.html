@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nostalgic Find - Social Preview Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1f2933 0%, #2f3a43 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+        
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .preview-item h2 {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        /* Facebook Preview (1200x630) */
+        .facebook-preview {
+            width: 100%;
+            height: 315px;
+            background: linear-gradient(115deg, rgba(15, 23, 31, 0.88), rgba(15, 23, 31, 0.55)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630"><rect fill="%23f7f2e8" width="1200" height="630"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Twitter Preview (1024x512 or 506x506) */
+        .twitter-preview {
+            width: 100%;
+            height: 256px;
+            background: linear-gradient(115deg, rgba(15, 23, 31, 0.88), rgba(15, 23, 31, 0.55)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 512"><rect fill="%23f7f2e8" width="1024" height="512"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* LinkedIn Preview (1200x627) */
+        .linkedin-preview {
+            width: 100%;
+            height: 313px;
+            background: linear-gradient(115deg, rgba(15, 23, 31, 0.88), rgba(15, 23, 31, 0.55)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 627"><rect fill="%23f7f2e8" width="1200" height="627"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .preview-content {
+            color: white;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .preview-logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .preview-title {
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+            color: #b88a44;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .preview-subtitle {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.05em;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .preview-cta {
+            display: inline-block;
+            background: #b88a44;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 0.4rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            box-shadow: 0 4px 12px rgba(184, 138, 68, 0.4);
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-top: 2rem;
+            color: #1f2933;
+        }
+        
+        .instructions h2 {
+            color: #b88a44;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .instructions ol {
+            margin-left: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        .instructions li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .instructions strong {
+            color: #1f2933;
+        }
+        
+        .code-block {
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            border-left: 4px solid #b88a44;
+        }
+        
+        .download-section {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #f7f2e8;
+            border-radius: 0.5rem;
+            border: 2px solid #b88a44;
+        }
+        
+        .download-section button {
+            background: #b88a44;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.4rem;
+            cursor: pointer;
+            font-weight: 700;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .download-section button:hover {
+            background: #8f672b;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .preview-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .facebook-preview {
+                height: 280px;
+            }
+            
+            .twitter-preview {
+                height: 200px;
+            }
+            
+            .linkedin-preview {
+                height: 280px;
+            }
+            
+            .preview-title {
+                font-size: 1.5rem;
+            }
+            
+            .preview-subtitle {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎌 Social Media Preview Generator</h1>
+        
+        <div class="preview-grid">
+            <!-- Facebook Preview -->
+            <div class="preview-item">
+                <h2>📘 Facebook (1200x630)</h2>
+                <div class="facebook-preview">
+                    <div class="preview-content">
+                        <div class="preview-logo">🎌</div>
+                        <div class="preview-title">NOSTALGIC FIND</div>
+                        <div class="preview-subtitle">Premium Vintage Thrift Store</div>
+                        <div class="preview-subtitle" style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem;">Fresh drops weekly • Timeless style</div>
+                        <div class="preview-cta">Shop Now</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Twitter Preview -->
+            <div class="preview-item">
+                <h2>𝕏 Twitter / X (1024x512)</h2>
+                <div class="twitter-preview">
+                    <div class="preview-content">
+                        <div class="preview-logo">🎌</div>
+                        <div class="preview-title" style="font-size: 1.6rem;">NOSTALGIC FIND</div>
+                        <div class="preview-subtitle">Curated Vintage Clothing</div>
+                        <div class="preview-cta">Explore Collection</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- LinkedIn Preview -->
+            <div class="preview-item">
+                <h2>💼 LinkedIn (1200x627)</h2>
+                <div class="linkedin-preview">
+                    <div class="preview-content">
+                        <div class="preview-logo">🎌</div>
+                        <div class="preview-title">NOSTALGIC FIND</div>
+                        <div class="preview-subtitle">Premium Vintage Thrift Store</div>
+                        <div class="preview-subtitle" style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem;">Sustainable fashion • Authentic pieces</div>
+                        <div class="preview-cta">Visit Store</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h2>📸 How to Create Your Social Preview Image</h2>
+            
+            <h3 style="color: #1f2933; margin-top: 1.5rem; margin-bottom: 0.8rem;">Option 1: Using Free Online Tools (EASIEST)</h3>
+            <ol>
+                <li><strong>Go to:</strong> <a href="https://www.canva.com/" target="_blank" style="color: #b88a44;">Canva.com</a> (Free account)</li>
+                <li><strong>Create new design</strong> → Choose "Facebook Cover" or "Social Media Image"</li>
+                <li><strong>Design your preview:</strong>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Add your thrift.png logo or hourglass emoji 🎌</li>
+                        <li>Title: "NOSTALGIC FIND - Premium Vintage Thrift Store"</li>
+                        <li>Subtitle: "Fresh drops weekly • Timeless style"</li>
+                        <li>Add a vintage aesthetic (use vintage filters, fonts, colors)</li>
+                        <li>Use colors: Dark backgrounds (#1f2933, #2f3a43) with gold accents (#b88a44)</li>
+                    </ul>
+                </li>
+                <li><strong>Download</strong> as JPG/PNG (recommended: 1200x630px for Facebook)</li>
+                <li><strong>Upload to your site</strong> (name it: <code>social-preview.jpg</code>)</li>
+            </ol>
+            
+            <h3 style="color: #1f2933; margin-top: 1.5rem; margin-bottom: 0.8rem;">Option 2: Use Your Product Photo</h3>
+            <ol>
+                <li>Take a nice photo of your vintage items (flat lay, styled)</li>
+                <li>Add text overlay: "NOSTALGIC FIND"</li>
+                <li>Size: 1200x630px minimum</li>
+                <li>Save as: <code>social-preview.jpg</code></li>
+            </ol>
+            
+            <h3 style="color: #1f2933; margin-top: 1.5rem; margin-bottom: 0.8rem;">Option 3: Professional Alternatives</h3>
+            <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                <li><strong>Figma:</strong> <a href="https://www.figma.com/" target="_blank" style="color: #b88a44;">figma.com</a> (Free, powerful)</li>
+                <li><strong>Adobe Express:</strong> <a href="https://www.adobe.com/express/" target="_blank" style="color: #b88a44;">adobe.com/express</a> (Free, easy)</li>
+                <li><strong>Pixlr:</strong> <a href="https://pixlr.com/" target="_blank" style="color: #b88a44;">pixlr.com</a> (Free online editor)</li>
+            </ul>
+            
+            <h3 style="color: #1f2933; margin-top: 1.5rem; margin-bottom: 0.8rem;">📝 After Creating Your Image:</h3>
+            <div class="download-section">
+                <strong>Follow these steps:</strong>
+                <ol style="margin-left: 1.5rem; margin-top: 0.8rem;">
+                    <li>Save your image as: <code>social-preview.jpg</code> (1200x630px)</li>
+                    <li>Place it in your project folder (same folder as index.html)</li>
+                    <li>Commit and push to GitHub:
+                        <div class="code-block">git add social-preview.jpg
+git commit -m "Add social media preview image"
+git push</div>
+                    </li>
+                    <li>Done! Your preview is now live 🎉</li>
+                </ol>
+            </div>
+            
+            <h3 style="color: #1f2933; margin-top: 1.5rem; margin-bottom: 0.8rem;">🧪 Test Your Social Preview</h3>
+            <ol>
+                <li>Visit: <a href="https://www.opengraph.xyz/" target="_blank" style="color: #b88a44;">opengraph.xyz</a></li>
+                <li>Paste your URL: <code>https://nostalgicfinds.netlify.app</code></li>
+                <li>See how it looks on Facebook, Twitter, LinkedIn!</li>
+            </ol>
+            
+            <div class="download-section" style="margin-top: 1.5rem;">
+                <strong>💡 Pro Tips:</strong>
+                <ul style="margin-left: 1.5rem; margin-top: 0.8rem;">
+                    <li>Use high contrast between text and background</li>
+                    <li>Include your logo/brand prominently</li>
+                    <li>Use the vintage/thrift aesthetic</li>
+                    <li>Keep text readable even when small</li>
+                    <li>Use colors: Dark backgrounds + Gold accents (#b88a44)</li>
+                    <li>Add a call-to-action: "Shop Now", "View Collection", etc.</li>
+                    <li>Test on all platforms before going live</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
